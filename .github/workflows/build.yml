@@ -39,12 +39,6 @@ jobs:
           # Publish build info
           jf rt bp
 
-      - name: Set Version
-        uses: datamonsters/replace-action@v2
-        with:
-          files: 'pom.xml'
-          replacements: 'Snapshot=${{ github.event.inputs.version_number }}'
-
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
