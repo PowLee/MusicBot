@@ -17,10 +17,10 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          server-id: 'central'
+          distribution: 'adopt'
+          server-id: 'ergoit'
           server-username: ARTIFACTORY_USERNAME
           server-password: ARTIFACTORY_PASSWORD
-          distribution: 'adopt'
           cache: maven
 
       - name: Setup JFrog CLI
