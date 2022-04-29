@@ -21,7 +21,6 @@ jobs:
           server-id: 'ergoit'
           server-username: ARTIFACTORY_USERNAME
           server-password: ARTIFACTORY_PASSWORD
-          cache: maven
 
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v2
