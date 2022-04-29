@@ -1,19 +1,10 @@
 name: Build
 on:
   workflow_dispatch:
-    inputs:
-      version_number:
-        description: 'Version Number'     
-        required: true
-        type: string
-      info:
-        description: 'Description of this Release'
-        required: true
-        type: string
 
 jobs:
   build_jar:
-    name: Build Jar
+    name: Build
     runs-on: ubuntu-latest
     env:
       ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
@@ -26,7 +17,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          server-id: central
+          server-id: 'central'
           server-username: ARTIFACTORY_USERNAME
           server-password: ARTIFACTORY_PASSWORD
           distribution: 'adopt'
@@ -59,13 +50,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn --batch-mode --update-snapshots -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=rpproj1
-
-      - name: Rename jar
-        run: mv target/*-All.jar JMusicBot-${{ github.event.inputs.version_number }}.jar
-
-      - name: Upload jar
-        uses: actions/upload-artifact@v3
-        with:
-          name: jar
-          path: JMusicBot-${{ github.event.inputs.version_number }}.jar
-          if-no-files-found: error
