@@ -15,6 +15,9 @@ jobs:
   build_jar:
     name: Build Jar
     runs-on: ubuntu-latest
+    env:
+      ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+      ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,6 +26,9 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          server-id: central
+          server-username: ARTIFACTORY_USERNAME
+          server-password: ARTIFACTORY_PASSWORD
           distribution: 'adopt'
           cache: maven
 
